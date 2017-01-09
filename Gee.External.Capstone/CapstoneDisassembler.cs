@@ -1,5 +1,6 @@
 ﻿using Gee.External.Capstone.Arm;
 using Gee.External.Capstone.Arm64;
+using Gee.External.Capstone.PowerPc;
 using Gee.External.Capstone.X86;
 using System;
 using System.Collections;
@@ -136,16 +137,30 @@ namespace Gee.External.Capstone {
             return @object;
         }
 
-        /// <summary>
-        ///     Create an X86 Disassembler.
-        /// </summary>
-        /// <param name="mode">
-        ///     The disassembler's mode.
-        /// </param>
-        /// <returns>
-        ///     A capstone disassembler.
-        /// </returns>
-        public static CapstoneDisassembler<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> CreateX86Disassembler(DisassembleMode mode) {
+		/// <summary>
+		///     Create a PowerPc Disassembler.
+		/// </summary>
+		/// <param name="mode">
+		///     The disassembler's mode.
+		/// </param>
+		/// <returns>
+		///     A capstone disassembler.
+		/// </returns>
+		public static CapstoneDisassembler<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> CreatePowerPcDisassembler(DisassembleMode mode) {
+			var @object = new CapstonePowerPcDisassembler(mode);
+			return @object;
+		}
+
+		/// <summary>
+		///     Create an X86 Disassembler.
+		/// </summary>
+		/// <param name="mode">
+		///     The disassembler's mode.
+		/// </param>
+		/// <returns>
+		///     A capstone disassembler.
+		/// </returns>
+		public static CapstoneDisassembler<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> CreateX86Disassembler(DisassembleMode mode) {
             var @object = new CapstoneX86Disassembler(mode);
             return @object;
         }

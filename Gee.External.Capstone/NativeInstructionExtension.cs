@@ -1,5 +1,6 @@
 ﻿using Gee.External.Capstone.Arm;
 using Gee.External.Capstone.Arm64;
+using Gee.External.Capstone.PowerPc;
 using Gee.External.Capstone.X86;
 
 namespace Gee.External.Capstone {
@@ -58,16 +59,23 @@ namespace Gee.External.Capstone {
             return @object;
         }
 
-        /// <summary>
-        ///     Convert a Native Instruction to an X86 Dissembled Instruction.
-        /// </summary>
-        /// <param name="this">
-        ///     A native instruction.
-        /// </param>
-        /// <returns>
-        ///     A dissembled instruction.
-        /// </returns>
-        public static Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> AsX86Instruction(this NativeInstruction @this) {
+		public static Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> AsPowerPcInstruction(this NativeInstruction @this) {
+			var @object = @this.AsInstruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail>();
+			@object.Id = (PowerPcInstruction)@this.Id;
+
+			return @object;
+		}
+
+		/// <summary>
+		///     Convert a Native Instruction to an X86 Dissembled Instruction.
+		/// </summary>
+		/// <param name="this">
+		///     A native instruction.
+		/// </param>
+		/// <returns>
+		///     A dissembled instruction.
+		/// </returns>
+		public static Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> AsX86Instruction(this NativeInstruction @this) {
             var @object = @this.AsInstruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail>();
             @object.Id = (X86Instruction) @this.Id;
 

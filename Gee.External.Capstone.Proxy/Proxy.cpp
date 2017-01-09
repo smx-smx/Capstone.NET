@@ -9,6 +9,10 @@ extern "C" {
 		return &detail->arm64;
 	}
 
+	__declspec(dllexport) cs_ppc* CapstonePowerPcDetail(cs_detail *detail) {
+		return &detail->ppc;
+	}
+
 	__declspec(dllexport) cs_x86* CapstoneX86Detail(cs_detail *detail) {
 		return &detail->x86;
 	}

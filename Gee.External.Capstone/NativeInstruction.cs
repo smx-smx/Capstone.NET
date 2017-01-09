@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using Gee.External.Capstone.Arm;
 using Gee.External.Capstone.Arm64;
 using Gee.External.Capstone.X86;
+using Gee.External.Capstone.PowerPc;
 
 namespace Gee.External.Capstone {
     /// <summary>
@@ -25,10 +26,10 @@ namespace Gee.External.Capstone {
         /// </summary>
         public ushort Size;
 
-        /// <summary>
-        ///     Instruction's Machine Bytes.
-        /// </summary>
-        public fixed byte Bytes [16];
+		/// <summary>
+		///     Instruction's Machine Bytes.
+		/// </summary>
+		public fixed byte Bytes [16];
 
         /// <summary>
         ///     Instruction's Mnemonic ASCII Text.
@@ -161,6 +162,15 @@ namespace Gee.External.Capstone {
                 return detail;
             }
         }
+
+		public NativePowerPcInstructionDetail NativePowerPcDetail {
+			get {
+				var pDetail = CapstoneProxyImport.PowerPcDetail(this.IndependentDetail);
+				var detail = MarshalExtension.PtrToStructure<NativePowerPcInstructionDetail>(pDetail);
+
+				return detail;
+			}
+		}
 
         /// <summary>
         ///     Get Instruction's X86 Detail.

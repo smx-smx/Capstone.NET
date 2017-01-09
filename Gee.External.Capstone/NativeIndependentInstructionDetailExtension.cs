@@ -3,6 +3,7 @@ using Gee.External.Capstone.Arm64;
 using System;
 using System.Linq;
 using Gee.External.Capstone.X86;
+using Gee.External.Capstone.PowerPc;
 
 namespace Gee.External.Capstone {
     /// <summary>
@@ -61,16 +62,33 @@ namespace Gee.External.Capstone {
             return @object;
         }
 
-        /// <summary>
-        ///     Convert a Native Architecture Independent Instruction Detail to an X86 Independent Instruction Detail.
-        /// </summary>
-        /// <param name="this">
-        ///     A native architecture independent instruction detail.
-        /// </param>
-        /// <returns>
-        ///     An independent instruction detail.
-        /// </returns>
-        public static IndependentInstructionDetail<X86Register, X86InstructionGroup> AsX86IndependentInstructionDetail(this NativeIndependentInstructionDetail @this) {
+		public static IndependentInstructionDetail<PowerPcRegister, PowerPcInstructionGroup> AsPowerPcIndependentInstructionDetail(this NativeIndependentInstructionDetail @this) {
+			var @object = new IndependentInstructionDetail<PowerPcRegister, PowerPcInstructionGroup>();
+			@object.Groups = @this.ManagedGroups
+				.Select(m => (PowerPcInstructionGroup)Convert.ToInt32(m))
+				.ToArray();
+
+			@object.ReadRegisters = @this.ManagedReadRegisters
+				.Select(m => (PowerPcRegister)Convert.ToInt32(m))
+				.ToArray();
+
+			@object.WrittenRegisters = @this.ManagedWrittenRegisters
+				.Select(m => (PowerPcRegister)Convert.ToInt32(m))
+				.ToArray();
+
+			return @object;
+		}
+
+		/// <summary>
+		///     Convert a Native Architecture Independent Instruction Detail to an X86 Independent Instruction Detail.
+		/// </summary>
+		/// <param name="this">
+		///     A native architecture independent instruction detail.
+		/// </param>
+		/// <returns>
+		///     An independent instruction detail.
+		/// </returns>
+		public static IndependentInstructionDetail<X86Register, X86InstructionGroup> AsX86IndependentInstructionDetail(this NativeIndependentInstructionDetail @this) {
             var @object = new IndependentInstructionDetail<X86Register, X86InstructionGroup>();
             @object.Groups = @this.ManagedGroups
                 .Select(m => (X86InstructionGroup) Convert.ToInt32(m))
