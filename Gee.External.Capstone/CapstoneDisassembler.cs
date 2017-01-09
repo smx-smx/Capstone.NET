@@ -118,8 +118,15 @@ namespace Gee.External.Capstone {
         /// <returns>
         ///     A capstone disassembler.
         /// </returns>
-        public static CapstoneDisassembler<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail> CreateArmDisassembler(DisassembleMode mode) {
-            var @object = new CapstoneArmDisassembler(mode);
+        public static CapstoneDisassembler<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail> CreateArmDisassembler(
+            DisassembleMode mode,
+            Func<Instruction<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail>> instrCreator)
+        {
+            if (instrCreator == null)
+            {
+                instrCreator = () => new Instruction<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail>();
+            }
+            var @object = new CapstoneArmDisassembler(mode, instrCreator);
             return @object;
         }
 
@@ -132,8 +139,14 @@ namespace Gee.External.Capstone {
         /// <returns>
         ///     A capstone disassembler.
         /// </returns>
-        public static CapstoneDisassembler<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail> CreateArm64Disassembler(DisassembleMode mode) {
-            var @object = new CapstoneArm64Disassembler(mode);
+        public static CapstoneDisassembler<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail> CreateArm64Disassembler(
+            DisassembleMode mode,
+            Func<Instruction<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail>> instrCreator = null) {
+            if (instrCreator == null)
+            {
+                instrCreator = () => new Instruction<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail>();
+            }
+            var @object = new CapstoneArm64Disassembler(mode, instrCreator);
             return @object;
         }
 
@@ -146,8 +159,15 @@ namespace Gee.External.Capstone {
 		/// <returns>
 		///     A capstone disassembler.
 		/// </returns>
-		public static CapstoneDisassembler<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> CreatePowerPcDisassembler(DisassembleMode mode) {
-			var @object = new CapstonePowerPcDisassembler(mode);
+		public static CapstoneDisassembler<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> CreatePowerPcDisassembler(
+            DisassembleMode mode,
+            Func<Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail>> instrCreator)
+        {
+            if (instrCreator == null)
+            {
+                instrCreator = () => new Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail>();
+            }
+            var @object = new CapstonePowerPcDisassembler(mode, instrCreator);
 			return @object;
 		}
 
@@ -160,8 +180,15 @@ namespace Gee.External.Capstone {
 		/// <returns>
 		///     A capstone disassembler.
 		/// </returns>
-		public static CapstoneDisassembler<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> CreateX86Disassembler(DisassembleMode mode) {
-            var @object = new CapstoneX86Disassembler(mode);
+		public static CapstoneDisassembler<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> CreateX86Disassembler(
+            DisassembleMode mode,
+            Func<Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail>> instrCreator)
+        {
+            if (instrCreator == null)
+            {
+                instrCreator = () => new Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail>();
+            }
+            var @object = new CapstoneX86Disassembler(mode, instrCreator);
             return @object;
         }
 

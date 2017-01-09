@@ -1,15 +1,24 @@
-﻿namespace Gee.External.Capstone.Arm {
+﻿using System;
+
+namespace Gee.External.Capstone.Arm {
     /// <summary>
     ///     Capstone ARM Disassembler.
     /// </summary>
     internal sealed class CapstoneArmDisassembler : CapstoneDisassembler<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail> {
+
+        private Func<Instruction<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail>> instrCreator;
         /// <summary>
         ///     Create a Capstone ARM Disassembler.
         /// </summary>
         /// <param name="mode">
         ///     The disassembler's mode.
         /// </param>
-        internal CapstoneArmDisassembler(DisassembleMode mode) : base(DisassembleArchitecture.Arm, mode) {}
+        internal CapstoneArmDisassembler(
+            DisassembleMode mode,
+            Func<Instruction<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail>> instrCreator) : base(DisassembleArchitecture.Arm, mode)
+        {
+            this.instrCreator = instrCreator;
+        }
 
         /// <summary>
         ///     Create a Dissembled Instruction.
@@ -21,7 +30,7 @@
         ///     A dissembled instruction.
         /// </returns>
         protected override Instruction<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail> CreateInstruction(NativeInstruction nativeInstruction) {
-            var @object = nativeInstruction.AsArmInstruction();
+            var @object = nativeInstruction.AsArmInstruction(instrCreator);
 
             // Get Native Instruction's Managed Independent Detail.
             //

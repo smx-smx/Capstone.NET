@@ -1,15 +1,25 @@
-﻿namespace Gee.External.Capstone.Arm64 {
+﻿using System;
+
+namespace Gee.External.Capstone.Arm64 {
     /// <summary>
     ///     Capstone ARM64 Disassembler.
     /// </summary>
     internal sealed class CapstoneArm64Disassembler : CapstoneDisassembler<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail> {
+
+        private Func<Instruction<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail>> instrCreator;
         /// <summary>
         ///     Create a Capstone ARM64 Disassembler.
         /// </summary>
         /// <param name="mode">
         ///     The disassembler's mode.
         /// </param>
-        internal CapstoneArm64Disassembler(DisassembleMode mode) : base(DisassembleArchitecture.Arm64, mode) {}
+        internal CapstoneArm64Disassembler(
+            DisassembleMode mode,
+            Func<Instruction<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail>> instrCreator)
+            : base(DisassembleArchitecture.Arm64, mode)
+        {
+            this.instrCreator = instrCreator;
+        }
 
         /// <summary>
         ///     Create a Dissembled Instruction.
@@ -21,7 +31,7 @@
         ///     A dissembled instruction.
         /// </returns>
         protected override Instruction<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail> CreateInstruction(NativeInstruction nativeInstruction) {
-            var @object = nativeInstruction.AsArm64Instruction();
+            var @object = nativeInstruction.AsArm64Instruction(instrCreator);
 
             // Get Native Instruction's Managed Independent Detail.
             //

@@ -1,15 +1,26 @@
-﻿namespace Gee.External.Capstone.X86 {
+﻿using System;
+
+namespace Gee.External.Capstone.X86 {
     /// <summary>
     ///     Capstone X86 Disassembler.
     /// </summary>
     internal sealed class CapstoneX86Disassembler : CapstoneDisassembler<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> {
+
+        private Func<Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail>> instrCreator;
+
         /// <summary>
         ///     Create a Capstone X86 Disassembler.
         /// </summary>
         /// <param name="mode">
         ///     The disassembler's mode.
         /// </param>
-        internal CapstoneX86Disassembler(DisassembleMode mode) : base(DisassembleArchitecture.X86, mode) {}
+        internal CapstoneX86Disassembler(
+            DisassembleMode mode,
+            Func<Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail>> instrCreator) :
+            base(DisassembleArchitecture.X86, mode)
+        {
+            this.instrCreator = instrCreator;
+        }
 
         /// <summary>
         ///     Create a Dissembled Instruction.
@@ -21,7 +32,7 @@
         ///     A dissembled instruction.
         /// </returns>
         protected override Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> CreateInstruction(NativeInstruction nativeInstruction) {
-            var @object = nativeInstruction.AsX86Instruction();
+            var @object = nativeInstruction.AsX86Instruction(instrCreator);
 
             // Get Native Instruction's Managed Independent Detail.
             //
