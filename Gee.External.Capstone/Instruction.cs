@@ -2,7 +2,7 @@
     /// <summary>
     ///     Dissembled Instruction.
     /// </summary>
-    public sealed class Instruction<TArchitectureInstruction, TArchitectureRegister, TArchitectureGroup, TArchitectureDetail> {
+    public class Instruction<TArchitectureInstruction, TArchitectureRegister, TArchitectureGroup, TArchitectureDetail> {
         /// <summary>
         ///     Get Instruction's Address (EIP).
         /// </summary>
