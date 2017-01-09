@@ -20,10 +20,9 @@ namespace Gee.External.Capstone {
         /// </returns>
         public static Instruction<TArchitectureInstruction, TArchitectureRegister, TArchitectureGroup, TArchitectureDetail> AsInstruction<TArchitectureInstruction, TArchitectureRegister, TArchitectureGroup, TArchitectureDetail>(
             this NativeInstruction @this,
-            Func<Instruction<TArchitectureInstruction, TArchitectureRegister, TArchitectureGroup, TArchitectureDetail>> ctor
-            ) {
-            //var @object = new Instruction<TArchitectureInstruction, TArchitectureRegister, TArchitectureGroup, TArchitectureDetail>();
-            var @object = ctor();
+            CapstoneDisassembler<TArchitectureInstruction, TArchitectureRegister, TArchitectureGroup, TArchitectureDetail> dasm)
+        {
+            var @object = dasm.CreateManagedInstruction();
             @object.Address = (long) @this.Address;
             @object.Bytes = @this.ManagedBytes;
             @object.Mnemonic = @this.ManagedMnemonic;
@@ -43,9 +42,9 @@ namespace Gee.External.Capstone {
         /// </returns>
         public static Instruction<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail> AsArmInstruction(
             this NativeInstruction @this,
-            Func<Instruction<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail>> ctor) {
-            //var @object = @this.AsInstruction<ArmInstruction, ArmRegister, ArmInstructionGroup, ArmInstructionDetail>();
-            var @object = ctor();
+            CapstoneArmDisassembler dasm)
+        { 
+            var @object = @this.AsInstruction(dasm);
             @object.Id = (ArmInstruction) @this.Id;
 
             return @object;
@@ -62,20 +61,18 @@ namespace Gee.External.Capstone {
         /// </returns>
         public static Instruction<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail> AsArm64Instruction(
             this NativeInstruction @this,
-            Func<Instruction<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail>> ctor)
+            CapstoneArm64Disassembler dasm)
         {
-            //var @object = @this.AsInstruction<Arm64Instruction, Arm64Register, Arm64InstructionGroup, Arm64InstructionDetail>();
-            var @object = ctor();
+            var @object = @this.AsInstruction(dasm);
             @object.Id = (Arm64Instruction) @this.Id;
             return @object;
         }
 
 		public static Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> AsPowerPcInstruction(
             this NativeInstruction @this,
-            Func<Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail>> ctor)
+            CapstonePowerPcDisassembler dasm)
         {
-            //var @object = @this.AsInstruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail>();
-            var @object = ctor();
+            var @object = @this.AsInstruction(dasm);
 			@object.Id = (PowerPcInstruction)@this.Id;
 
 			return @object;
@@ -92,9 +89,9 @@ namespace Gee.External.Capstone {
 		/// </returns>
 		public static Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail> AsX86Instruction(
             this NativeInstruction @this,
-            Func<Instruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail>> ctor) {
-            //var @object = @this.AsInstruction<X86Instruction, X86Register, X86InstructionGroup, X86InstructionDetail>();
-            var @object = ctor();
+            CapstoneX86Disassembler dasm)
+        {
+            var @object = @this.AsInstruction(dasm);
             @object.Id = (X86Instruction) @this.Id;
 
             return @object;

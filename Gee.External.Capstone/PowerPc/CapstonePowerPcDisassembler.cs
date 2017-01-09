@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Gee.External.Capstone.PowerPc {
-	internal sealed class CapstonePowerPcDisassembler : CapstoneDisassembler<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> {
+	public class CapstonePowerPcDisassembler : CapstoneDisassembler<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> {
 
-        Func<Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail>> instrCreator;
-
-        internal CapstonePowerPcDisassembler(
-            DisassembleMode mode, 
-            Func<Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail>> instrCreator) 
+        public CapstonePowerPcDisassembler(DisassembleMode mode)
             : base(DisassembleArchitecture.PowerPc, mode)
         {
-            this.instrCreator = instrCreator;
         }
 
-		protected override Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> CreateInstruction(NativeInstruction nativeInstruction) {
-			var @object = nativeInstruction.AsPowerPcInstruction(instrCreator);
+        public override Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> CreateManagedInstruction()
+        {
+            return new Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail>();
+        }
+
+        protected override Instruction<PowerPcInstruction, PowerPcRegister, PowerPcInstructionGroup, PowerPcInstructionDetail> CreateInstruction(NativeInstruction nativeInstruction) {
+			var @object = nativeInstruction.AsPowerPcInstruction(this);
 
 			// Get Native Instruction's Managed Independent Detail.
 			//
