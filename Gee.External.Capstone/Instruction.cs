@@ -41,6 +41,6 @@
         /// <summary>
         ///     Create a Dissembled Instruction.
         /// </summary>
-        internal Instruction() {}
+        public Instruction() {}
     }
 }
