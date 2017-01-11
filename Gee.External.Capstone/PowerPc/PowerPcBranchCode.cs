@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Gee.External.Capstone.PowerPc {
 	[Flags]
-	public enum PowerPcBranchCode {
-		INVALID = 0,
-		LT = (0 << 5) | 12,
-		LE = (1 << 5) | 4,
-		EQ = (2 << 5) | 12,
-		GE = (0 << 5) | 4,
-		GT = (1 << 5) | 12,
-		NE = (2 << 5) | 4,
-		UN = (3 << 5) | 12,
-		NU = (3 << 5) | 4,
+	public enum PowerPcBranchCondition {
+		Invalid			= 0,
+		LessThan		= (0 << 5) | 12,
+		LessOrEqual		= (1 << 5) | 4,
+		Equal			= (2 << 5) | 12,
+		GreaterOrEqual	= (0 << 5) | 4,
+		GreaterThan		= (1 << 5) | 12,
+		NotEqual		= (2 << 5) | 4,
+		Unordered		= (3 << 5) | 12,
+		NotUnordered	= (3 << 5) | 4,
 
 		// extra conditions
-		SO = (4 << 5) | 12,  // summary overflow
-		NS = (4 << 5) | 4,   // not summary overflow
+		SummaryOverflow = (4 << 5) | 12,  // summary overflow
+		NotSummaryOverflow = (4 << 5) | 4,   // not summary overflow
 	}
 }

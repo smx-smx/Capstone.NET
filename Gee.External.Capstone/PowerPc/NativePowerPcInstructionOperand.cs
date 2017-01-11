@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace Gee.External.Capstone.PowerPc {
     /// <summary>
@@ -15,5 +16,5 @@ namespace Gee.External.Capstone.PowerPc {
         ///     Operand's Value.
         /// </summary>
         public NativePowerPcInstructionOperandValue Value;
-    }
+	}
 }

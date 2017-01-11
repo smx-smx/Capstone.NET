@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Gee.External.Capstone.PowerPc {
 	public enum PowerPcBranchHint {
-		INVALID = 0, // no hint
-		PLUS,    // PLUS hint
-		MINUS,   // MINUS hint
+		Invalid = 0, // no hint
+		Plus,    // PLUS hint
+		Minus,   // MINUS hint
 	}
 }

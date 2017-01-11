@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Gee.External.Capstone.PowerPc {
 	public enum PowerPcInstructionGroup {
-		Invalid = 0, // = CS_GRP_INVALID
+		INVALID = 0, // = CS_GRP_INVALID
 
 		//> Generic groups
 		// all jump instructions (conditional+direct+indirect jumps)

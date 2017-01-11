@@ -8,11 +8,13 @@ namespace Gee.External.Capstone.PowerPc {
 	public static class NativePowerPcInstructionDetailExtension {
 		public static PowerPcInstructionDetail AsPowerPcInstructionDetail(this NativePowerPcInstructionDetail @this) {
 			var @object = new PowerPcInstructionDetail();
-            //TODO: Implement
-            @object.BranchCode = (PowerPcBranchCode) @this.BranchCode;
+            @object.BranchCode = (PowerPcBranchCondition) @this.BranchCode;
             @object.BranchHint = (PowerPcBranchHint) @this.BranchHint;
             @object.OperandCount = @this.OperandCount;
-			//TODO: Operands!
+			@object.Operands = @this.ManagedOperands
+				.Select(m => m.AsPowerPcInstructionOperand())
+				.ToArray();
+			@object.UpdateCr0 = @this.UpdateCr0;
 			return @object;
 		}
 	}

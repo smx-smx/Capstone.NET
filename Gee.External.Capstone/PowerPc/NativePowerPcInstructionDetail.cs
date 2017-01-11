@@ -10,12 +10,12 @@ namespace Gee.External.Capstone.PowerPc {
         /// <summary>
         ///     Instruction's Branch Code.
         /// </summary>
-        public int BranchCode;
+        public uint BranchCode;
 
         /// <summary>
         ///     Instruction's Branch Hint.
         /// </summary>
-        public int BranchHint;
+        public uint BranchHint;
 
         /// <summary>
         ///     Instruction's Update CR0 Flag.

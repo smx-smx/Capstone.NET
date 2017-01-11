@@ -15,5 +15,7 @@ namespace Gee.External.Capstone.PowerPc {
         ///     Operand Value's Register.
         /// </summary>
         public uint Register;
+
+		public uint BranchCondition;
     }
 }
